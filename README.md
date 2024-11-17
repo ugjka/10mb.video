@@ -2,14 +2,14 @@
 Fit a video into a 10mb file (Discord nitro pls?)
 
 ## deps
-Needs ffmpeg ffprobe fdkaac
+Needs `ffmpeg` `ffprobe` `fdkaac`
 
 Tested only on Linux/Termux
 
 ## building
 To build this you need the Go compiler:
 
-go build -o 10mb.video main.go
+`go build -o 10mb.video main.go`
 
 
 ## caveats
@@ -17,7 +17,7 @@ ffmpeg doesn't like hi-res square still image videos (youtube music stuff),
 
 the encoder will overshoot the bitrate by a huge margin in such case
 
-to work around you may try "-down 512"
+to work around you may try `-down 512`
 
 ## usage
 ```
