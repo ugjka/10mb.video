@@ -11,6 +11,8 @@ To build this you need the Go compiler:
 
 `go build -o 10mb.video main.go`
 
+## archlinux
+`paru -S 10mb.video`
 
 ## caveats
 ffmpeg doesn't like hi-res square still image videos (youtube music stuff),
