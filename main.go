@@ -108,17 +108,18 @@ func main() {
 	// ffmpeg encodes stuff in chunks
 	// we need to deal with possible bitrate overshoot
 	// guessed values
-	switch {
-	case bitfloat > 800:
-		// 256KB overshoot
-		bitfloat -= 0.25 * MEG / seconds
-	case bitfloat > 400:
-		// 64KB overshoot
-		bitfloat -= 0.0625 * MEG / seconds
-	default:
-		// 32KB overshoot
-		bitfloat -= 0.03125 * MEG / seconds
-	}
+	// switch {
+	// case bitfloat > 800:
+	// 	// 256KB overshoot
+	// 	bitfloat -= 0.25 * MEG / seconds
+	// case bitfloat > 400:
+	// 	// 64KB overshoot
+	// 	bitfloat -= 0.0625 * MEG / seconds
+	// default:
+	// 	// 32KB overshoot
+	// 	bitfloat -= 0.03125 * MEG / seconds
+	//}
+	bitfloat -= 0.50 * MEG / seconds
 
 	// muxing overhead (not exact science)
 	// based on observed values
@@ -256,7 +257,7 @@ func main() {
 	pass1 = exec.Command(
 		"ffmpeg", "-y",
 		"-i", file,
-		"-fs", fmt.Sprintf("%gM", *size),
+		//"-fs", fmt.Sprintf("%gM", *size),
 		"-vf", vfopt,
 		"-c:v", "libx264",
 		"-preset", *preset,
@@ -282,7 +283,7 @@ func main() {
 		pass2 = exec.Command(
 			"ffmpeg", "-y",
 			"-i", file,
-			"-fs", fmt.Sprintf("%gM", *size),
+			//"-fs", fmt.Sprintf("%gM", *size),
 			"-vf", vfopt,
 			"-c:v", "libx264",
 			"-preset", *preset,
@@ -299,7 +300,7 @@ func main() {
 			"ffmpeg", "-y",
 			"-i", file,
 			"-i", file+".m4a",
-			"-fs", fmt.Sprintf("%gM", *size),
+			//"-fs", fmt.Sprintf("%gM", *size),
 			"-vf", vfopt,
 			"-c:v", "libx264",
 			"-preset", *preset,
