@@ -119,7 +119,7 @@ func main() {
 	// 	// 32KB overshoot
 	// 	bitfloat -= 0.03125 * MEG / seconds
 	//}
-	bitfloat -= 0.50 * MEG / seconds
+	bitfloat -= 0.25 * MEG / seconds
 
 	// muxing overhead (not exact science)
 	// based on observed values
