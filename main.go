@@ -79,7 +79,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	file := flag.Args()[0]
+	filepath := flag.Args()[0]
+	file := path.Base(filepath)
+	dir := path.Dir(filepath)
+
+	err := os.Chdir(dir)
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(1)
+	}
 
 	// get video lenght in seconds
 	probe := exec.Command(
