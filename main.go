@@ -100,13 +100,14 @@ func main() {
 		"ffprobe",
 		"-i", file,
 		"-show_entries", "format=duration",
-		"-v", "quiet",
+		//"-v", "quiet",
 		"-of", "csv=p=0",
 	)
-
+	stderr := bytes.NewBuffer(nil)
+	probe.Stderr = stderr
 	secbytes, err := probe.Output()
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		fmt.Fprintln(os.Stderr, stderr)
 		os.Exit(1)
 	}
 	secbytes = bytes.TrimSpace(secbytes)
