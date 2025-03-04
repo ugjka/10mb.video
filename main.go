@@ -45,6 +45,7 @@ Options:
 	  h264 encode preset (default "slow")
 -size float
 	  target size in MB (default 10)
+-s	  keep in source dir e.g ../../
 `
 
 func main() {
@@ -64,6 +65,7 @@ func main() {
 	music := flag.Bool("music", false, "64kbps stereo audio (he-aac v1)")
 	voice := flag.Bool("voice", false, "16kbps mono audio (he-aac v1)")
 	mute := flag.Bool("mute", false, "no audio")
+	source := flag.Bool("s", false, "keep in source dir")
 
 	flag.Usage = func() {
 		fmt.Fprintf(os.Stderr, USAGE, path.Base(os.Args[0]))
@@ -85,10 +87,9 @@ func main() {
 		os.Exit(1)
 	}
 
-	filepath := flag.Args()[0]
-	file := path.Base(filepath)
-	dir := path.Dir(filepath)
-
+	fp := flag.Args()[0]
+	file := path.Base(fp)
+	dir := path.Dir(fp)
 	err = os.Chdir(dir)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -246,7 +247,11 @@ func main() {
 	// construct output filename
 	arr := strings.Split(file, ".")
 	output := strings.Join(arr[0:len(arr)-1], ".")
-	output = fmt.Sprintf("%s/%gmb.%s.mp4", destdir, *size, output)
+	if *source {
+		output = fmt.Sprintf("%gmb.%s.mp4", *size, output)
+	} else {
+		output = fmt.Sprintf("%s/%gmb.%s.mp4", destdir, *size, output)
+	}
 
 	// beware: changing this changes the muxing overhead
 	const FPS = 24
