@@ -45,7 +45,8 @@ Options:
 	  h264 encode preset (default "slow")
 -size float
 	  target size in MB (default 10)
--s	  keep in source dir e.g ../../
+-s	  
+	  keep in source dir e.g ../../
 `
 
 func main() {
